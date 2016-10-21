@@ -5,4 +5,12 @@ package com.sourcey.materiallogindemo;
  */
 
 public class user {
+    private String nickname;
+    private String mail;
+
+    public user(String mail, String nickname) {
+        this.mail = mail;
+        this.nickname = nickname;
+    }
 }
+

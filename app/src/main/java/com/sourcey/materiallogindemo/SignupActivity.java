@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
+        final String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
@@ -75,6 +75,7 @@ public class SignupActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        createUser(_nameText.getText().toString(),email);
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
                         onSignupSuccess();
@@ -84,6 +85,9 @@ public class SignupActivity extends AppCompatActivity {
                 }, 3000);
     }
 
+    public void createUser(String nickname,String mail){
+        user user = new user(mail,nickname);
+    }
 
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
