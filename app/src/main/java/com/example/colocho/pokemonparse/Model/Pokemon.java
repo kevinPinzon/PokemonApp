@@ -40,6 +40,7 @@ public class Pokemon extends ParseObject {
     public String getDescription() {
         return getString(descKey);
     }
+
     public void getImage(final GetImageCallBack callBack) {
         if (image == null) {
             ParseFile imageFile = getParseFile(imageKey);
@@ -76,5 +77,8 @@ public class Pokemon extends ParseObject {
         put(descKey, desc);
     }
 
+    public void setImage(ParseFile image){
+        put(imageKey,image);
+    }
 
 }

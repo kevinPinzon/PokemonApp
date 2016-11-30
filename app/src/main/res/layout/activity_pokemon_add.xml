@@ -27,7 +27,8 @@
                 android:layout_height="200dp"
                 android:id="@+id/pokemonImagenButton"
                 android:clickable="true"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -38,7 +39,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number|textPersonName"
+                android:inputType="number"
                 android:id="@+id/pokemonNumberEditText"
                 android:hint="Number"
                 android:layout_marginTop="20dp"/>
