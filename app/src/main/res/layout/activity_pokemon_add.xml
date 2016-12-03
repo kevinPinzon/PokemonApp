@@ -36,6 +36,13 @@
                 android:id="@+id/pokemonNameEditText"
                 android:hint="Name"
                 android:layout_marginTop="20dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_pokemonType"
+                android:layout_marginTop="20dp">
+            </Spinner>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

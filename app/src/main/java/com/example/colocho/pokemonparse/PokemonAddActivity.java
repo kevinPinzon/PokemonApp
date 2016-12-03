@@ -14,16 +14,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.colocho.pokemonparse.Activity.MainActivity;
+import com.example.colocho.pokemonparse.Adapter.PokemonListAdapter;
+import com.example.colocho.pokemonparse.Helper.DataManager;
+import com.example.colocho.pokemonparse.Helper.GetObjectsCallBack;
 import com.example.colocho.pokemonparse.Model.Pokemon;
+import com.example.colocho.pokemonparse.Model.Type;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PokemonAddActivity extends AppCompatActivity {
 
@@ -53,6 +65,32 @@ public class PokemonAddActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_pokemon_add,menu);
+
+        final Spinner spinner = (Spinner)findViewById(R.id.spinner_pokemonType);
+        final ArrayList<String> types = new ArrayList<>();
+
+
+        final ArrayAdapter<String> typesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,types);
+
+        DataManager.getTypeWhere(null,new GetObjectsCallBack<List, Exception,Boolean>() {
+            @Override
+            public void done(List objects, Exception e, Boolean local) {
+                for(Object typeObject: objects){
+                    Type typeTemp = (Type) typeObject;
+                    types.add(typeTemp.getName());
+                }
+
+            typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            spinner.setAdapter(typesAdapter);
+            }
+        });
+
+        //fin
+
+
+
+
+
         return super.onCreateOptionsMenu(menu);
     }
 

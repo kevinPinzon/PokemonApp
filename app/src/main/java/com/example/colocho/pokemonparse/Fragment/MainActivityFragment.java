@@ -62,8 +62,7 @@ swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeContaneir);
       // options.put("numId",13);
      //   DataManager.getPokemonWhere(options,new GetObjectsCallBack<List, Exception,Boolean>()
 
-                DataManager.getPokemonWhere(options,new GetObjectsCallBack<List, Exception,Boolean>()
-                {
+        DataManager.getPokemonsWhere(options,new GetObjectsCallBack<List, Exception,Boolean>() {
             @Override
             public void done(List objects, Exception e, Boolean local) {
 
