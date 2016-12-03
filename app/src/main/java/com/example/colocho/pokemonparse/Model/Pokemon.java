@@ -65,6 +65,10 @@ public class Pokemon extends ParseObject {
         }
     }
     //Set
+    public void setType(Type type) {
+        put("type", type);
+    }
+
     public void setName(String name) {
         put(nameKey, name);
     }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,8 +40,10 @@ import java.util.Map;
 
 public class PokemonAddActivity extends AppCompatActivity {
 
+    final Pokemon pokemon = new Pokemon();
     ImageButton imageButton;
     final int ACTIVITY_SELECT_IMAGE = 123;
+    List<Type> allTypes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,29 +70,40 @@ public class PokemonAddActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_pokemon_add,menu);
 
         final Spinner spinner = (Spinner)findViewById(R.id.spinner_pokemonType);
-        final ArrayList<String> types = new ArrayList<>();
+        final ArrayList<String> nameTypes = new ArrayList<>();
 
-
-        final ArrayAdapter<String> typesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,types);
+        final ArrayAdapter<String> typesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,nameTypes);
 
         DataManager.getTypeWhere(null,new GetObjectsCallBack<List, Exception,Boolean>() {
             @Override
             public void done(List objects, Exception e, Boolean local) {
+                allTypes = objects;
+
                 for(Object typeObject: objects){
                     Type typeTemp = (Type) typeObject;
-                    types.add(typeTemp.getName());
+                    nameTypes.add(typeTemp.getName());
                 }
+                Type typeSelected = allTypes.get(0);
+                pokemon.setType(typeSelected);
 
-            typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             spinner.setAdapter(typesAdapter);
             }
         });
 
-        //fin
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Type typeSelected = allTypes.get(position);
+                pokemon.setType(typeSelected);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -112,8 +126,6 @@ public class PokemonAddActivity extends AppCompatActivity {
 
             if ( !(name.getText().toString().equals("") || numId.getText().toString().equals("") ||
                     name.getText().toString().equals("") || descrip.getText().toString().equals("") || imagen == null)){
-
-                final Pokemon pokemon = new Pokemon();
 
                 pokemon.setDesc(descrip.getText().toString());
                 pokemon.setName(name.getText().toString());
