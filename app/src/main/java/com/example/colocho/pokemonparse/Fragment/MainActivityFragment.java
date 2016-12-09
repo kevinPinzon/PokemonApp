@@ -29,7 +29,8 @@ import java.util.Objects;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
- private View view;
+
+    private View view;
     SwipeRefreshLayout swipeRefreshLayout;
 
     public MainActivityFragment() {
@@ -43,7 +44,7 @@ public class MainActivityFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main,container,false);
         loadPokemon();
 
-swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeContaneir);
+        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeContaneir);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

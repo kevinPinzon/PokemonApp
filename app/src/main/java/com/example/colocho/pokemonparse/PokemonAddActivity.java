@@ -78,7 +78,7 @@ public class PokemonAddActivity extends AppCompatActivity {
             @Override
             public void done(List objects, Exception e, Boolean local) {
                 allTypes = objects;
-
+                nameTypes.clear();
                 for(Object typeObject: objects){
                     Type typeTemp = (Type) typeObject;
                     nameTypes.add(typeTemp.getName());
@@ -139,9 +139,9 @@ public class PokemonAddActivity extends AppCompatActivity {
                 file.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        progress.dismiss();
-                        if (e != null) {
 
+                        if (e != null) {
+                            progress.dismiss();
                             progress.setTitle("Error");
                             progress.setMessage(e.getMessage());
                             progress.setCancelable(true);
@@ -149,9 +149,19 @@ public class PokemonAddActivity extends AppCompatActivity {
                             return;
                         }
                         pokemon.setImage(file);
-                        pokemon.saveEventually();
+                        pokemon.saveEventually(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                progress.dismiss();
+                                if (e == null){
+                                    Intent intent =new Intent();
+                                    setResult(RESULT_OK,intent);
+                                    finish();
+                                }
+                            }
+                        });
 
-                        finish();
+
                     }
 
                 });

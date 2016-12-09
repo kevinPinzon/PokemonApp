@@ -1,15 +1,20 @@
 package com.example.colocho.pokemonparse.Activity;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.colocho.pokemonparse.Fragment.MainActivityFragment;
 import com.example.colocho.pokemonparse.PokemonAddActivity;
 import com.example.colocho.pokemonparse.R;
 import com.parse.Parse;
@@ -17,7 +22,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    final int ACTIVY_ADD_POKEMON=30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +39,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 Intent intent = new Intent(MainActivity.this, PokemonAddActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,ACTIVY_ADD_POKEMON);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK && requestCode ==ACTIVY_ADD_POKEMON){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            List<Fragment> listFragment = fragmentManager.getFragments();
+
+            for (Fragment fragment: listFragment){
+                if (fragment instanceof MainActivityFragment){
+                    ((MainActivityFragment) fragment).loadPokemon();
+                }
+            }
+        }
+
     }
 
     @Override

@@ -32,7 +32,7 @@ public class DataManager {
         getTypeWhere(null,getobjectcallback);
     }
 
-    public static void getTypeWhere(Map<String,Object> options, final GetObjectsCallBack<List, Exception,Boolean> getobjectcallback) {
+    public static void getTypeWhere( final Map<String,Object> options, final GetObjectsCallBack<List, Exception,Boolean> getobjectcallback) {
         final ParseQuery localquery = new ParseQuery(Type.class);
 
         ParseQuery q = new ParseQuery(Type.class);
@@ -58,12 +58,12 @@ public class DataManager {
             public void done(List<ParseObject> objects, ParseException e) {
 
                 if (e ==null){
-                    ParseObject.unpinAllInBackground();
-                }
-                getobjectcallback.done(objects,e,false);
+                    if (options == null){
+                        ParseObject.unpinAllInBackground("Type");
+                    }
 
-                if (e ==null){
-                    ParseObject.pinAllInBackground(objects);
+                    getobjectcallback.done(objects,e,false);
+                    ParseObject.pinAllInBackground("Type",objects);
                 }
             }
 
@@ -75,7 +75,7 @@ public class DataManager {
         getPokemonsWhere(null,getobjectcallback);
     }
 
-    public static void getPokemonsWhere(Map<String,Object> options, final GetObjectsCallBack<List, Exception,Boolean> getobjectcallback) {
+    public static void getPokemonsWhere(final Map<String,Object> options, final GetObjectsCallBack<List, Exception,Boolean> getobjectcallback) {
         final ParseQuery localquery = new ParseQuery(Pokemon.class);
 
         ParseQuery q = new ParseQuery(Pokemon.class);
@@ -106,12 +106,12 @@ public class DataManager {
             public void done(List<ParseObject> objects, ParseException e) {
 
                 if (e ==null){
-                    ParseObject.unpinAllInBackground();
-                }
-                getobjectcallback.done(objects,e,false);
+                    if (options == null){
+                        ParseObject.unpinAllInBackground("Pokemon");
+                    }
 
-                if (e ==null){
-                    ParseObject.pinAllInBackground(objects);
+                    getobjectcallback.done(objects,e,false);
+                    ParseObject.pinAllInBackground("Pokemon",objects);
                 }
             }
 
